@@ -1,38 +1,76 @@
-//Pallette
-color darkpink=#F50083;
-color pink=#F563B1;
-color lightpink=#F5C6DF;
-color white=#FFFFFF;
-color green=#7AEDD9;
-color beige=#EDECCE;
+//pallette of colors
+color teal = #00FFC1;
+color purple = #FF00E2;
+color blue = #00ECFF;
+color yellow = #DCFF00;
+color pink = #FF006F;
+color white = #FFFCFC;
+color sakura = #FFCBF0;
 
-int toggle;
+color selectedColor;
 
-void setup(){
-  size(800,600);
+void setup (){
+  size (800,600);
   strokeWeight(5);
-  textSize(30);
-  
-  toggle=1;
+  stroke(white);
+  selectedColor=sakura;
 }
 
-void draw(){
-  background(beige);
+void draw (){
+  background(sakura);
   
-  fill(darkpink);
-  stroke(green);
-  rect(550,50,200,100);
- 
-  if (toggle>0){
-  guidelines();
-  }
+  //buttons
+  tactile(60,60,80,80);
+  fill(teal);
+  rect(60,60,80,80);
+  
+  tactile(60,160,80,80);
+  fill(purple);
+  rect(60,160,80,80);
+  
+  tactile(60,260,80,80);
+  fill(blue);
+  rect(60,260,80,80);
+  
+  tactile(60,360,80,80);
+  fill(yellow);
+  rect(60,360,80,80);
+  
+  tactile(60,460,80,80);
+  fill(pink);
+  rect(60,460,80,80);
+  
+  //indicator
+  stroke(white);
+  fill(selectedColor);
+  square(300,100,400);
 }
 
-void mouseReleased(){
-  if (mouseX>550 && mouseX<750 && mouseY>50 && mouseY<150){
-    toggle=toggle*-1;
+void tactile(int x,int y,int r){
+  if (dist(x,y,mouseX,mouseY)<r){
+    stroke(sakura);
+  } else{
+    stroke(white);
   }
+  fill(pink);
+  rect(60,460,80,80);
 }
-    
-void guidelines(){
+
+void mouseReleased (){
+  if (dist(100,100,mouseX,mouseY)<50){
+    selectedColor=teal;
+    stroke(teal);
+  }
+  if (dist(100,200,mouseX,mouseY)<50){
+    selectedColor=purple; 
+  }
+  if (dist(100,300,mouseX,mouseY)<50){
+    selectedColor=blue; 
+  }
+  if (dist(100,400,mouseX,mouseY)<50){
+    selectedColor=yellow; 
+  }
+  if (dist(100,500,mouseX,mouseY)<50){
+    selectedColor=pink; 
+  }
 }
