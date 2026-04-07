@@ -46,10 +46,11 @@ void draw (){
   square(300,100,400);
 }
 
-void tactile(int x,int y,int r){
-  if (dist(x,y,mouseX,mouseY)<r){
+void tactile(int x,int y,int w,int h){
+  if (mouseX>x && mouseX<x+w && mouseY>y && mouseY<y+h){
     stroke(sakura);
-  } else{
+  }
+  else {
     stroke(white);
   }
   fill(pink);
@@ -57,20 +58,19 @@ void tactile(int x,int y,int r){
 }
 
 void mouseReleased (){
-  if (dist(100,100,mouseX,mouseY)<50){
+  if (mouseX>60 && mouseX<140 && mouseY>60 && mouseY<140){
     selectedColor=teal;
-    stroke(teal);
   }
-  if (dist(100,200,mouseX,mouseY)<50){
-    selectedColor=purple; 
+  if (mouseX>60 && mouseX<140 && mouseY>160 && mouseY<240){
+    selectedColor=purple;
   }
-  if (dist(100,300,mouseX,mouseY)<50){
-    selectedColor=blue; 
+  if (mouseX>60 && mouseX<140 && mouseY>260 && mouseY<340){
+    selectedColor=blue;
   }
-  if (dist(100,400,mouseX,mouseY)<50){
-    selectedColor=yellow; 
+  if (mouseX>60 && mouseX<140 && mouseY>360 && mouseY<440){
+    selectedColor=yellow;
   }
-  if (dist(100,500,mouseX,mouseY)<50){
-    selectedColor=pink; 
+  if (mouseX>60 && mouseX<140 && mouseY>460 && mouseY<540){
+    selectedColor=pink;
   }
 }
