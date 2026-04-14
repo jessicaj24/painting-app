@@ -8,15 +8,15 @@ color blue = #00ECFF;
 color yellow = #DCFF00;
 color pink = #FF006F;
 color white = #FFFCFC;
-color sakura = #FFCBF0;
+color black = 0;
 color selectedColor;
 
 void setup() {
   size(600, 600);
   background(255);
   strokeWeight(5);
-  stroke(white);
-  selectedColor=sakura;
+  stroke(black);
+  selectedColor=black;
   bow=loadImage("bow.png");
   bowOn=false;
   cloud=loadImage("cloud.png");
@@ -37,21 +37,53 @@ void draw() {
   cloudOnOff();
   rect(100, 0, 100, 100);
   image(cloud, 100, 0, 100, 100);
+  
+  tactile(215,5,25,25);
+  fill(teal);
+  rect(215,5,25,25);
+  
+  tactile(215,40,25,25);
+  fill(purple);
+  rect(215,40,25,25);
+  
+  tactile(215,75,25,25);
+  fill(blue);
+  rect(215,75,25,25);
+  
+  tactile(250,5,25,25);
+  fill(yellow);
+  rect(250,5,25,25);
+  
+  tactile(250,40,25,25);
+  fill(pink);
+  rect(250,40,25,25);
 }
 
 void mouseDragged() {
   if (bowOn==false) {
-    stroke(0);
+    if (cloudOn==true){
+      image(cloud, mouseX, mouseY, 100, 100);
+    }
+    if (cloudOn==false){
+    stroke(selectedColor);
     strokeWeight(5);
-    line(pmouseX, pmouseY, mouseX, mouseY);
-  } else {
+    line(pmouseX, pmouseY, mouseX, mouseY);      
+    }
+  }
+  if (bowOn==true) {
     image(bow, mouseX, mouseY, 100, 100);
   }
   if (cloudOn==false) {
-    stroke(0);
+    if (bowOn==true){
+      image(bow, mouseX, mouseY, 100, 100);
+    }
+    if (bowOn==false){
+    stroke(selectedColor);
     strokeWeight(5);
     line(pmouseX, pmouseY, mouseX, mouseY);
-  } else {
+    }
+  }
+  if (cloudOn==true){
     image(cloud, mouseX, mouseY, 100, 100);
   }
 }
@@ -64,14 +96,31 @@ void mouseReleased() {
   if (mouseX>100 && mouseX<200 && mouseY>0 && mouseY<100) {
     cloudOn=!cloudOn;
   }
+  if (mouseX>215 && mouseX<240 && mouseY>5 && mouseY<30){
+    selectedColor=teal;
+  }
+  if (mouseX>215 && mouseX<240 && mouseY>40 && mouseY<65){
+    selectedColor=purple;
+  }
+  if (mouseX>215 && mouseX<240 && mouseY>75 && mouseY<100){
+    selectedColor=blue;
+  }
+  if (mouseX>250 && mouseX<275 && mouseY>5 && mouseY<30){
+    selectedColor=yellow;
+  }
+  if (mouseX>250 && mouseX<275 && mouseY>40 && mouseY<65){
+    selectedColor=pink;
+  }
 }
 
 
 void tactile(int x, int y, int w, int h) {
   if (mouseX>x && mouseX<x+w && mouseY>y && mouseY<y+h) {
     fill(240, 215, 236);
+    stroke(0);
   } else {
     fill(255);
+    stroke(white);
   }
 }
 
