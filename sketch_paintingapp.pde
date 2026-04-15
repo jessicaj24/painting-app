@@ -8,6 +8,7 @@ color blue = #00ECFF;
 color yellow = #DCFF00;
 color pink = #FF006F;
 color white = #FFFCFC;
+color sakura = #FFCBF0;
 color black = 0;
 color selectedColor;
 
@@ -24,6 +25,9 @@ void setup() {
 }
 
 void draw() {
+  noStroke();
+  fill(sakura);
+  rect(0, 0, 600, 110);
   strokeWeight(1);
   stroke(255, 185, 244);
   fill(255);
@@ -32,83 +36,78 @@ void draw() {
   bowOnOff();
   rect(0, 0, 100, 100);
   image(bow, 0, 0, 100, 100);
-  
+
   tactile(100, 0, 100, 100);
   cloudOnOff();
   rect(100, 0, 100, 100);
   image(cloud, 100, 0, 100, 100);
-  
-  tactile(215,5,25,25);
+
+  strokeWeight(1);
+  stroke(0);
+  tactile(215, 5, 25, 25);
   fill(teal);
-  rect(215,5,25,25);
-  
-  tactile(215,40,25,25);
+  rect(215, 5, 25, 25);
+
+  strokeWeight(1);
+  stroke(0);
+  tactile(215, 40, 25, 25);
   fill(purple);
-  rect(215,40,25,25);
-  
-  tactile(215,75,25,25);
+  rect(215, 40, 25, 25);
+
+  strokeWeight(1);
+  stroke(0);
+  tactile(215, 75, 25, 25);
   fill(blue);
-  rect(215,75,25,25);
-  
-  tactile(250,5,25,25);
+  rect(215, 75, 25, 25);
+
+  strokeWeight(1);
+  stroke(0);
+  tactile(250, 5, 25, 25);
   fill(yellow);
-  rect(250,5,25,25);
-  
-  tactile(250,40,25,25);
+  rect(250, 5, 25, 25);
+
+  strokeWeight(1);
+  stroke(0);
+  tactile(250, 40, 25, 25);
   fill(pink);
-  rect(250,40,25,25);
+  rect(250, 40, 25, 25);
 }
 
 void mouseDragged() {
-  if (bowOn==false) {
-    if (cloudOn==true){
-      image(cloud, mouseX, mouseY, 100, 100);
-    }
-    if (cloudOn==false){
-    stroke(selectedColor);
-    strokeWeight(5);
-    line(pmouseX, pmouseY, mouseX, mouseY);      
-    }
-  }
-  if (bowOn==true) {
+  if (bowOn) {
     image(bow, mouseX, mouseY, 100, 100);
-  }
-  if (cloudOn==false) {
-    if (bowOn==true){
-      image(bow, mouseX, mouseY, 100, 100);
-    }
-    if (bowOn==false){
+  } else if (cloudOn) {
+    image(cloud, mouseX, mouseY, 100, 100);
+  } else {
     stroke(selectedColor);
     strokeWeight(5);
     line(pmouseX, pmouseY, mouseX, mouseY);
-    }
-  }
-  if (cloudOn==true){
-    image(cloud, mouseX, mouseY, 100, 100);
   }
 }
 
 
 void mouseReleased() {
   if (mouseX>0 && mouseX<100 && mouseY>0 && mouseY<100) {
-    bowOn=!bowOn;
+    bowOn = true;
+    cloudOn = false;
   }
   if (mouseX>100 && mouseX<200 && mouseY>0 && mouseY<100) {
-    cloudOn=!cloudOn;
+    cloudOn = true;
+    bowOn = false;
   }
-  if (mouseX>215 && mouseX<240 && mouseY>5 && mouseY<30){
+  if (mouseX>215 && mouseX<240 && mouseY>5 && mouseY<30) {
     selectedColor=teal;
   }
-  if (mouseX>215 && mouseX<240 && mouseY>40 && mouseY<65){
+  if (mouseX>215 && mouseX<240 && mouseY>40 && mouseY<65) {
     selectedColor=purple;
   }
-  if (mouseX>215 && mouseX<240 && mouseY>75 && mouseY<100){
+  if (mouseX>215 && mouseX<240 && mouseY>75 && mouseY<100) {
     selectedColor=blue;
   }
-  if (mouseX>250 && mouseX<275 && mouseY>5 && mouseY<30){
+  if (mouseX>250 && mouseX<275 && mouseY>5 && mouseY<30) {
     selectedColor=yellow;
   }
-  if (mouseX>250 && mouseX<275 && mouseY>40 && mouseY<65){
+  if (mouseX>250 && mouseX<275 && mouseY>40 && mouseY<65) {
     selectedColor=pink;
   }
 }
