@@ -2,6 +2,7 @@ PImage bow;
 boolean bowOn;
 PImage cloud;
 boolean cloudOn;
+PImage eraser;
 color teal = #00FFC1;
 color purple = #FF00E2;
 color blue = #00ECFF;
@@ -13,9 +14,10 @@ color black = 0;
 color selectedColor;
 float sliderY;
 float strokeSize;
+float stampSize;
 
 void setup() {
-  size(600, 600);
+  size(600, 600,P2D);
   background(255);
   strokeWeight(5);
   stroke(black);
@@ -24,8 +26,10 @@ void setup() {
   bowOn=false;
   cloud=loadImage("cloud.png");
   cloudOn=false;
+  eraser=loadImage("eraser.png");
   sliderY=30;
   strokeSize=5;
+  stampSize=70;
 }
 
 void draw() {
@@ -54,6 +58,10 @@ void draw() {
   cloudOnOff();
   rect(100, 0, 100, 100);
   image(cloud, 100, 0, 100, 100);
+  
+  tactile(520,20,60,60);
+  rect(520,20,60,60);
+  image(eraser,520,20,60,60);
 
   strokeWeight(1);
   stroke(0);
@@ -99,6 +107,7 @@ void draw() {
   text("current", 292, 50);
   text("colour", 294, 65);
   
+  stampSize=map(sliderY,10, 90, 20, 120);
   strokeSize=map(sliderY, 10, 90, 1, 30);
   
   if (dist(460,18,mouseX,mouseY)<15){
@@ -134,9 +143,9 @@ void draw() {
 
 void mouseDragged() {
   if (bowOn) {
-    image(bow, mouseX, mouseY, 100, 100);
+    image(bow, mouseX, mouseY, stampSize, stampSize);
   } else if (cloudOn) {
-    image(cloud, mouseX, mouseY, 100, 100);
+    image(cloud, mouseX, mouseY, stampSize, stampSize);
   } else {
     stroke(selectedColor);
     strokeWeight(strokeSize);
@@ -185,6 +194,20 @@ void mouseReleased() {
     bowOn = false;
     cloudOn = false;
   }
+  if (dist(460,18,mouseX,mouseY)<15){
+    background(white);
+  }
+  if (dist(460,55,mouseX,mouseY)<15){
+    selectOutput("Choose a name for your new image file","saveImage");
+  }
+  if (dist(460,90,mouseX,mouseY)<15){
+    selectInput("Pick an image to load","openImage");
+  }
+  if (mouseX>520 && mouseX<580 && mouseY>20 && mouseY<80) {
+    selectedColor=white;
+    bowOn = false;
+    cloudOn = false;
+  }
   controlSlider();
 }
 
@@ -222,5 +245,23 @@ void cloudOnOff() {
 void controlSlider(){
   if (mouseX>350 && mouseX<370 && mouseY>15 && mouseY<90){
     sliderY=mouseY;
+  }
+}
+
+void saveImage(File f) {
+  if (f!=null){
+    PImage canvas = get(71,1,width-71,height-1);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+void openImage(File f){
+  if (f!=null){
+    int n=0;
+    while(n<100){
+      PImage pic=loadImage(f.getPath());
+      image(pic,20,120);
+      n=n+1;
+    }
   }
 }
