@@ -17,7 +17,7 @@ float strokeSize;
 float stampSize;
 
 void setup() {
-  size(600, 600,P2D);
+  size(600, 600);
   background(255);
   strokeWeight(5);
   stroke(black);
@@ -250,7 +250,7 @@ void controlSlider(){
 
 void saveImage(File f) {
   if (f!=null){
-    PImage canvas = get(71,1,width-71,height-1);
+    PImage canvas = get(0,110,width,height-110);
     canvas.save(f.getAbsolutePath());
   }
 }
@@ -260,7 +260,7 @@ void openImage(File f){
     int n=0;
     while(n<100){
       PImage pic=loadImage(f.getPath());
-      image(pic,20,120);
+      image(pic,0,110);
       n=n+1;
     }
   }
